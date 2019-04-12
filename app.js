@@ -7,10 +7,20 @@ const mongoose = require('mongoose')
 const productRoutes = require('./api/routes/products')
 const orderRoutes = require('./api/routes/orders')
 
-mongoose.connect = ('mongodb+srv://chupe:' + process.env.MONGO_DB_PW + '@cluster0-5kxmz.gcp.mongodb.net/test?retryWrites=true',
+// online db
+mongoose.connect('mongodb+srv://chupe:' + process.env.MONGO_DB_PW + '@cluster0-5kxmz.gcp.mongodb.net/firstDb?retryWrites=true',
     {
-        useMongoClient: true
+        useNewUrlParser: true
+    }, err => {
+        console.log('connected')
+        if (err) console.log(err)
     })
+
+// local db
+// mongoose.connect('mongodb://localhost/firstDb', { useNewUrlParser: true }, err => {
+//     console.log('connected')
+//     if (err) console.log(err.errmsg)
+// })
 
 app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: false }))
